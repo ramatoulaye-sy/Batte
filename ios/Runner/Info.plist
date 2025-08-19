@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>CFBundleDisplayName</key>
+	<string>Batte</string>
+	<key>CFBundleExecutable</key>
+	<string>$(EXECUTABLE_NAME)</string>
+	<key>CFBundleIdentifier</key>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>batte</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>$(FLUTTER_BUILD_NAME)</string>
+	<key>CFBundleSignature</key>
+	<string>????</string>
+	<key>CFBundleVersion</key>
+	<string>$(FLUTTER_BUILD_NUMBER)</string>
+	<key>LSRequiresIPhoneOS</key>
+	<true/>
+	<key>UILaunchStoryboardName</key>
+	<string>LaunchScreen</string>
+	<key>UIMainStoryboardFile</key>
+	<string>Main</string>
+	<key>UISupportedInterfaceOrientations</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
+	<key>UISupportedInterfaceOrientations~ipad</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationPortraitUpsideDown</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
+	<key>UIViewControllerBasedStatusBarAppearance</key>
+	<false/>
+	<key>CADisableMinimumFrameDurationOnPhone</key>
+	<true/>
+	<key>UIApplicationSupportsIndirectInputEvents</key>
+	<true/>
+	
+	<!-- Permissions de géolocalisation -->
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Batte a besoin de votre localisation pour localiser les collecteurs proches de chez vous et optimiser les collectes de déchets.</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Batte a besoin de votre localisation pour localiser les collecteurs proches de chez vous et optimiser les collectes de déchets.</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Batte a besoin de votre localisation pour localiser les collecteurs proches de chez vous et optimiser les collectes de déchets.</string>
+	
+	<!-- Permissions de caméra pour scan QR -->
+	<key>NSCameraUsageDescription</key>
+	<string>Batte a besoin de votre caméra pour scanner les QR codes de votre poubelle intelligente et importer automatiquement les données de déchets.</string>
+	
+	<!-- Permissions de microphone pour enregistrement vocal -->
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Batte a besoin de votre microphone pour les enregistrements vocaux dans le chat et les notes audio.</string>
+	
+	<!-- Permissions de photos pour avatars et documents -->
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Batte a besoin d'accéder à vos photos pour vous permettre de choisir un avatar ou de télécharger des documents.</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Batte a besoin d'accéder à votre galerie pour sauvegarder des documents et des reçus de transaction.</string>
+	
+	<!-- Permissions de contacts pour parrainage -->
+	<key>NSContactsUsageDescription</key>
+	<string>Batte a besoin d'accéder à vos contacts pour vous permettre de parrainer vos amis et gagner des points bonus.</string>
+	
+	<!-- Permissions de calendrier pour planifier les collectes -->
+	<key>NSCalendarsUsageDescription</key>
+	<string>Batte a besoin d'accéder à votre calendrier pour planifier les collectes de déchets et vous envoyer des rappels.</string>
+	
+	<!-- Permissions de notifications -->
+	<key>NSUserNotificationUsageDescription</key>
+	<string>Batte a besoin d'envoyer des notifications pour vous informer des mises à jour de vos collectes, paiements et offres spéciales.</string>
+	
+	<!-- Permissions de Bluetooth pour poubelle intelligente -->
+	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>Batte a besoin du Bluetooth pour se connecter à votre poubelle intelligente et synchroniser les données de déchets en temps réel.</string>
+	<key>NSBluetoothPeripheralUsageDescription</key>
+	<string>Batte a besoin du Bluetooth pour se connecter à votre poubelle intelligente et synchroniser les données de déchets en temps réel.</string>
+	
+	<!-- Permissions de réseau pour la synchronisation -->
+	<key>NSLocalNetworkUsageDescription</key>
+	<string>Batte a besoin d'accéder au réseau local pour se connecter à votre poubelle intelligente sur le même réseau Wi-Fi.</string>
+	
+	<!-- Configuration pour les notifications push -->
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>fetch</string>
+		<string>remote-notification</string>
+		<string>background-processing</string>
+	</array>
+	
+	<!-- Configuration pour le partage de fichiers -->
+	<key>LSSupportsOpeningDocumentsInPlace</key>
+	<true/>
+	<key>UIFileSharingEnabled</key>
+	<true/>
+	
+	<!-- Configuration pour les URL schemes -->
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>batte.app</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>batte</string>
+				<string>batte-app</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>orange-money</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>orange-money</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>mtn-money</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>mtn-money</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>moov-money</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>moov-money</string>
+			</array>
+		</dict>
+	</array>
+	
+	<!-- Configuration pour les services tiers -->
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>orange-money</string>
+		<string>mtn-money</string>
+		<string>moov-money</string>
+		<string>tel</string>
+		<string>sms</string>
+		<string>mailto</string>
+	</array>
+	
+	<!-- Configuration pour la sécurité -->
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<false/>
+		<key>NSExceptionDomains</key>
+		<dict>
+			<key>localhost</key>
+			<dict>
+				<key>NSExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+			</dict>
+		</dict>
+	</dict>
+</dict>
+</plist>

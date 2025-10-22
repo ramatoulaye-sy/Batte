@@ -1,322 +1,240 @@
-# 🌍 Battè - Application Mobile Guinéenne de Recyclage
+# 🚀 Battè - Application Mobile de Recyclage Intelligent
 
-> Transformez vos déchets en argent grâce à une poubelle intelligente connectée
-
-[![Flutter](https://img.shields.io/badge/Flutter-3.0+-blue.svg)](https://flutter.dev/)
-[![Supabase](https://img.shields.io/badge/Supabase-Backend-green.svg)](https://supabase.com/)
-[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-
----
-
-## 📁 Organisation du Projet
-
-```
-batte/
-├── lib/              ← Code source Flutter
-├── database/         ← Scripts SQL Supabase
-├── documentation/    ← Guides et documentations (18 fichiers)
-├── esp32/            ← Code pour la poubelle IoT
-├── assets/           ← Images, icônes, audio
-└── README.md         ← Ce fichier
-```
-
-**📚 Consulte le dossier `documentation/` pour tous les guides détaillés**
+<div align="center">
+  <img src="assets/icons/icons.jpeg" alt="Battè Logo" width="200"/>
+  
+  **Transformez vos déchets en argent avec une poubelle intelligente connectée !**
+  
+  [![Version](https://img.shields.io/badge/version-1.0.0-green.svg)](https://github.com/ramatoulaye-sy/Batte/releases)
+  [![Flutter](https://img.shields.io/badge/Flutter-3.0+-blue.svg)](https://flutter.dev)
+  [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+  [![Platform](https://img.shields.io/badge/platform-Android-green.svg)](https://developer.android.com)
+</div>
 
 ---
 
-## ✨ Nouvelle Architecture (Octobre 2025)
+## 📱 **À PROPOS DE BATTÈ**
 
-Le backend Node.js a été **complètement supprimé** et remplacé par **Supabase** pour une architecture plus simple, stable et sans serveur.
+Battè est une application mobile révolutionnaire qui transforme le recyclage en une expérience gamifiée et rémunératrice. Grâce à des poubelles intelligentes connectées via Bluetooth, les utilisateurs peuvent recycler leurs déchets et gagner de l'argent en temps réel.
 
-### ✅ Avantages
-
-- **Pas de serveur backend** à gérer
-- **Pas de problèmes de port** ou d'adresse IP
-- **Authentification sécurisée** par OTP SMS via Supabase Auth
-- **API REST automatique** générée par Supabase
-- **Base de données PostgreSQL** hébergée
-- **Stockage de fichiers** inclus
-- **Notifications push** via Firebase
-- **Temps réel** avec WebSockets
-- **Gratuit** jusqu'à 500 Mo de stockage
+### **🎯 Mission**
+- **Écologique** : Encourager le recyclage responsable
+- **Économique** : Rémunérer les utilisateurs pour leurs efforts
+- **Sociale** : Créer une communauté engagée pour l'environnement
+- **Technologique** : Utiliser l'IoT pour moderniser la gestion des déchets
 
 ---
 
-## 🚀 Démarrage Rapide
+## ✨ **FONCTIONNALITÉS PRINCIPALES**
 
-### 1️⃣ Créer le fichier `.env`
+### **👤 Pour les Utilisateurs**
+- 🔄 **Recyclage Intelligent** : Connexion Bluetooth aux poubelles intelligentes
+- 💰 **Gains Automatiques** : Calcul instantané des récompenses
+- 📊 **Suivi des Performances** : Statistiques détaillées et graphiques
+- 🎓 **Éducation Environnementale** : Contenu éducatif et quiz
+- 🛠️ **Services Communautaires** : Offrir et demander des services
+- 📱 **Interface Moderne** : Design gamifié et intuitif
 
-Crée un fichier **`.env`** à la racine du projet (`C:\Users\USER\Desktop\Batte\batte\.env`) :
+### **🚛 Pour les Collecteurs**
+- 📍 **Géolocalisation** : Trouver les clients proches
+- 📋 **Gestion des Collectes** : Suivi des demandes et historique
+- 💼 **Profil Professionnel** : Gestion des informations et documents
+- ⚙️ **Paramètres Avancés** : Configuration de disponibilité et préférences
+- 📈 **Analytics** : Statistiques de performance et revenus
 
-```env
-# Supabase (Backend complet)
-SUPABASE_URL=https://zhtnqugrcubrtjvpdzty.supabase.co
-SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpodG5xdWdyY3VicnRqdnBkenR5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTUyNTk4ODMsImV4cCI6MjA3MDgzNTg4M30.Ci7BHifhK098NZUwRphvRew5T_DCoA17leVg3Z1daaY
+---
 
-# Firebase (Notifications uniquement)
-FIREBASE_API_KEY=your-firebase-api-key
+## 🏗️ **ARCHITECTURE TECHNIQUE**
 
-# Bluetooth (Poubelle intelligente)
-BIN_DEVICE_NAME=BATTE_BIN
-BIN_SERVICE_UUID=4fafc201-1fb5-459e-8fcc-c5c9c331914b
+### **Frontend**
+- **Flutter 3.0+** : Framework de développement multiplateforme
+- **Provider** : Gestion d'état réactive
+- **Material Design 3** : Interface utilisateur moderne
 
-# Environment
-ENVIRONMENT=development
-```
+### **Backend**
+- **Supabase** : Base de données et authentification
+- **Firebase** : Notifications push et analytics
+- **PostgreSQL** : Base de données relationnelle
 
-### 2️⃣ Lancer l'application
+### **Connectivité**
+- **Bluetooth** : Communication avec les poubelles intelligentes
+- **Géolocalisation** : Services de localisation
+- **Offline-First** : Fonctionnement sans connexion internet
 
-```powershell
+### **Stockage**
+- **Hive** : Base de données locale
+- **SharedPreferences** : Préférences utilisateur
+- **Synchronisation** : Sync automatique en ligne
+
+---
+
+## 📦 **INSTALLATION**
+
+### **Prérequis**
+- Android 5.0+ (API 21+)
+- Flutter SDK 3.0+
+- Dart SDK 3.0+
+
+### **Installation de l'APK**
+1. Téléchargez l'APK depuis [Releases](https://github.com/ramatoulaye-sy/Batte/releases)
+2. Activez "Sources inconnues" dans les paramètres Android
+3. Installez l'APK en le tapant
+
+### **Installation depuis le code source**
+```bash
+# Cloner le dépôt
+git clone https://github.com/ramatoulaye-sy/Batte.git
+cd Batte
+
 # Installer les dépendances
 flutter pub get
 
-# Lancer l'application sur un appareil connecté
+# Générer les fichiers de code
+flutter packages pub run build_runner build
+
+# Lancer l'application
 flutter run
 ```
 
-**C'est tout !** 🎉 Plus besoin de démarrer un serveur backend.
-
 ---
 
-## 📱 Test de l'Inscription
+## 🧪 **TESTS**
 
-1. Lance l'application : `flutter run`
-2. Clique sur **"S'inscrire"**
-3. Entre ton numéro de téléphone (format: **+224612345678**)
-4. Entre ton nom
-5. Clique sur **"Continuer"**
-6. **En mode développement**, Supabase affiche le code OTP dans les logs ou dans le Dashboard → **Authentication** → **Users**
-7. Entre le code OTP
-8. ✅ Tu es connecté !
+### **Guide de Test Complet**
+Consultez le [Guide de Test Complet](GUIDE_TEST_COMPLET.md) pour tester toutes les fonctionnalités de l'application.
 
----
+### **Tests Automatisés**
+```bash
+# Tests unitaires
+flutter test
 
-## ⚙️ Configuration Supabase (Important)
-
-Pour que l'application fonctionne, tu dois configurer Supabase :
-
-### Étape 1 : Activer Phone Auth
-
-1. Va sur [https://supabase.com/dashboard](https://supabase.com/dashboard)
-2. Sélectionne ton projet **Battè**
-3. Va dans **Authentication** → **Providers**
-4. Active **Phone**
-
-### Étape 2 : Activer Row Level Security (RLS)
-
-Va dans **SQL Editor** et exécute le script complet dans le fichier [`CONFIGURATION_SUPABASE.md`](./CONFIGURATION_SUPABASE.md) (section 3️⃣).
-
-Ou exécute rapidement ce script minimum :
-
-```sql
--- Activer RLS
-ALTER TABLE public.users ENABLE ROW LEVEL SECURITY;
-ALTER TABLE public.waste_transactions ENABLE ROW LEVEL SECURITY;
-ALTER TABLE public.education_content ENABLE ROW LEVEL SECURITY;
-ALTER TABLE public.jobs ENABLE ROW LEVEL SECURITY;
-
--- Politique pour "users"
-CREATE POLICY "Users can view own profile" 
-ON public.users FOR SELECT 
-USING (auth.uid()::text = id::text);
-
-CREATE POLICY "Users can update own profile" 
-ON public.users FOR UPDATE 
-USING (auth.uid()::text = id::text);
-
-CREATE POLICY "Users can insert own profile" 
-ON public.users FOR INSERT 
-WITH CHECK (auth.uid()::text = id::text);
-
--- Politique pour "waste_transactions"
-CREATE POLICY "Users can view own waste transactions" 
-ON public.waste_transactions FOR SELECT 
-USING (auth.uid()::text = user_id::text);
-
-CREATE POLICY "Users can insert own waste transactions" 
-ON public.waste_transactions FOR INSERT 
-WITH CHECK (auth.uid()::text = user_id::text);
-
--- Lecture publique pour certaines tables
-CREATE POLICY "Anyone can view education content" 
-ON public.education_content FOR SELECT 
-USING (true);
-
-CREATE POLICY "Anyone can view jobs" 
-ON public.jobs FOR SELECT 
-USING (true);
-```
-
-### Étape 3 : Créer les fonctions SQL
-
-Exécute ce script dans **SQL Editor** :
-
-```sql
--- Fonction pour les statistiques de déchets
-CREATE OR REPLACE FUNCTION get_waste_stats(user_id uuid)
-RETURNS json AS $$
-DECLARE
-  result json;
-BEGIN
-  SELECT json_build_object(
-    'total_weight_kg', COALESCE(SUM(weight_kg), 0),
-    'total_amount_gnf', COALESCE(SUM(amount_gnf), 0),
-    'total_transactions', COUNT(*)
-  ) INTO result
-  FROM waste_transactions
-  WHERE waste_transactions.user_id = get_waste_stats.user_id;
-  
-  RETURN result;
-END;
-$$ LANGUAGE plpgsql SECURITY DEFINER;
-
--- Fonction pour mettre à jour le solde et les points
-CREATE OR REPLACE FUNCTION update_user_balance_and_points(
-  user_id uuid,
-  amount numeric,
-  points integer
-)
-RETURNS void AS $$
-BEGIN
-  UPDATE users
-  SET 
-    balance = balance + amount,
-    points = users.points + points,
-    updated_at = NOW()
-  WHERE id = update_user_balance_and_points.user_id;
-END;
-$$ LANGUAGE plpgsql SECURITY DEFINER;
+# Tests d'intégration
+flutter test integration_test/
 ```
 
 ---
 
-## 📂 Structure du Projet
+## 📱 **ÉCRANS DE L'APPLICATION**
 
+### **Authentification**
+- Splash Screen avec animation
+- Onboarding interactif
+- Connexion/Inscription
+- Choix de profil (Utilisateur/Collecteur)
+
+### **Dashboard Utilisateur**
+- Vue d'ensemble des gains
+- Statistiques de recyclage
+- Graphiques des revenus
+- Navigation rapide
+
+### **Module de Recyclage**
+- Connexion Bluetooth aux poubelles
+- Ajout manuel de déchets
+- Historique des recyclages
+- Calcul automatique des prix
+
+### **Module de Budget**
+- Suivi des transactions
+- Demandes de retrait
+- Graphiques des revenus
+- Export des données
+
+### **Module d'Éducation**
+- Articles éducatifs
+- Quiz environnementaux
+- Système de points
+- Progression de lecture
+
+### **Module de Services**
+- Offres de services
+- Demandes de services
+- Messagerie intégrée
+- Système de notation
+
+### **Dashboard Collecteur**
+- Gestion des collectes
+- Suivi des performances
+- Paramètres de disponibilité
+- Analytics détaillées
+
+---
+
+## 🔧 **CONFIGURATION**
+
+### **Variables d'Environnement**
+Créez un fichier `.env` à la racine du projet :
+```env
+SUPABASE_URL=your_supabase_url
+SUPABASE_ANON_KEY=your_supabase_anon_key
+FIREBASE_PROJECT_ID=your_firebase_project_id
 ```
-batte/
-├── lib/
-│   ├── main.dart                      # Point d'entrée (initialise Supabase)
-│   ├── app.dart                       # Configuration de l'application
-│   ├── services/
-│   │   ├── supabase_service.dart      # 🆕 Service Supabase (remplace ApiService)
-│   │   ├── auth_service.dart          # 🔄 Authentification via Supabase
-│   │   ├── storage_service.dart       # Stockage local
-│   │   └── notification_service.dart  # Notifications Firebase
-│   ├── providers/
-│   │   ├── auth_provider.dart         # État d'authentification
-│   │   ├── waste_provider.dart        # État des déchets
-│   │   └── ...
-│   ├── screens/
-│   │   ├── splash/                    # Écran de démarrage
-│   │   ├── auth/                      # Login/Signup
-│   │   ├── home/                      # Dashboard
-│   │   ├── recycling/                 # Module Recyclage
-│   │   ├── budget/                    # Module Budget
-│   │   ├── education/                 # Module Éducation
-│   │   └── services/                  # Module Services
-│   ├── widgets/                       # Composants réutilisables
-│   ├── models/                        # Modèles de données
-│   └── core/                          # Constantes et utils
-├── assets/
-│   ├── images/                        # Logo et images
-│   ├── icons/                         # Icônes de l'app
-│   └── translations/                  # Fichiers de traduction
-├── .env                               # 🔑 Variables d'environnement
-├── pubspec.yaml                       # Dépendances Flutter
-├── README.md                          # Ce fichier
-└── CONFIGURATION_SUPABASE.md          # Guide détaillé Supabase
-```
+
+### **Configuration Supabase**
+1. Créez un projet Supabase
+2. Exécutez les scripts SQL dans le dossier `database/`
+3. Configurez les politiques RLS
+4. Activez l'authentification
+
+### **Configuration Firebase**
+1. Créez un projet Firebase
+2. Ajoutez l'application Android
+3. Téléchargez `google-services.json`
+4. Configurez les notifications push
 
 ---
 
-## 🛠️ Technologies Utilisées
+## 📊 **MÉTRIQUES DE PERFORMANCE**
 
-### Frontend
-- **Flutter** (Dart) - Framework mobile cross-platform
-- **Provider** - Gestion d'état
-- **Supabase Flutter** - Client Supabase pour Flutter
-- **Firebase** - Notifications push (FCM)
-- **Hive** - Base de données locale
-- **fl_chart** - Graphiques
-- **flutter_blue_plus** - Bluetooth (ESP32)
-
-### Backend
-- **Supabase** - Backend as a Service (BaaS)
-  - PostgreSQL (base de données)
-  - Auth (authentification par OTP SMS)
-  - Storage (stockage de fichiers)
-  - Realtime (WebSockets)
-  - Edge Functions (fonctions serverless)
-
-### IoT
-- **ESP32** - Microcontrôleur pour la poubelle intelligente
-- **Bluetooth** - Communication Flutter ↔ ESP32
-- **Capteurs** : HX711 (poids), HC-SR04 (niveau), SIM800L (GSM)
+- **Taille APK** : 56.9 MB
+- **Taille App Bundle** : 45.6 MB
+- **Temps de lancement** : < 5 secondes
+- **Consommation mémoire** : Optimisée
+- **Battery usage** : Faible impact
 
 ---
 
-## 🎨 Palette de Couleurs
+## 🤝 **CONTRIBUTION**
 
-- **Vert foncé** : `#38761D` (Primary)
-- **Jaune/Or** : `#FBC02D` (Secondary)
-- **Vert clair** : `#C8E6C9` (Card Background)
-- **Violet** : `#8B5CF6` (Accents)
-
----
-
-## 📞 En cas de Problème
-
-### ❌ Erreur : "SUPABASE_URL ou SUPABASE_ANON_KEY manquant"
-
-**Solution** : Vérifie que le fichier `.env` existe à la racine et contient les bonnes valeurs.
-
-### ❌ Erreur : "Session invalide après vérification OTP"
-
-**Solution** : Vérifie que Phone Auth est activé dans Supabase Dashboard → **Authentication** → **Providers**.
-
-### ❌ Code OTP non reçu
-
-**Solution** : En mode développement, le code OTP s'affiche dans les logs Supabase ou dans **Dashboard** → **Authentication** → **Users**.
-
-Pour la production, configure Twilio dans Supabase (voir [`CONFIGURATION_SUPABASE.md`](./CONFIGURATION_SUPABASE.md)).
-
----
-
-## 📄 Documentation Complète
-
-- **[CONFIGURATION_SUPABASE.md](./CONFIGURATION_SUPABASE.md)** - Guide détaillé de configuration Supabase (RLS, Auth, SQL, etc.)
-
----
-
-## 🤝 Contribuer
+Les contributions sont les bienvenues ! Pour contribuer :
 
 1. Fork le projet
-2. Crée une branche (`git checkout -b feature/AmazingFeature`)
-3. Commit tes changements (`git commit -m 'Add some AmazingFeature'`)
+2. Créez une branche pour votre fonctionnalité (`git checkout -b feature/AmazingFeature`)
+3. Committez vos changements (`git commit -m 'Add some AmazingFeature'`)
 4. Push vers la branche (`git push origin feature/AmazingFeature`)
-5. Ouvre une Pull Request
+5. Ouvrez une Pull Request
 
 ---
 
-## 📜 Licence
+## 📄 **LICENCE**
 
-Ce projet est sous licence MIT.
-
----
-
-## 👥 Équipe
-
-- **Ramatoulaye SY** - Développeuse principale
-- **Battè Team** - Équipe Guinée
+Ce projet est sous licence MIT. Voir le fichier [LICENSE](LICENSE) pour plus de détails.
 
 ---
 
-## 🌟 Remerciements
+## 👥 **ÉQUIPE**
 
-- [Supabase](https://supabase.com) - Backend as a Service
-- [Flutter](https://flutter.dev) - Framework mobile
-- [Firebase](https://firebase.google.com) - Notifications push
+- **Développement** : Équipe Battè
+- **Design** : Équipe UX/UI Battè
+- **Backend** : Équipe Supabase/Firebase
 
 ---
 
-**Fait avec ❤️ en Guinée pour les femmes guinéennes**
+## 📞 **SUPPORT**
+
+- **Email** : batte@example.com
+- **GitHub Issues** : [Signaler un bug](https://github.com/ramatoulaye-sy/Batte/issues)
+- **Documentation** : [Wiki du projet](https://github.com/ramatoulaye-sy/Batte/wiki)
+
+---
+
+## 🎉 **REMERCIEMENTS**
+
+Merci à tous les contributeurs et testeurs qui ont participé au développement de Battè !
+
+---
+
+<div align="center">
+  <p>Fait avec ❤️ par l'équipe Battè</p>
+  <p>🇬🇳 Made in Guinea</p>
+</div>

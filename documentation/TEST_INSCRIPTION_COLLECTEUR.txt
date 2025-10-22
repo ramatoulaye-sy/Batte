@@ -1,0 +1,130 @@
+✅ GUIDE COMPLET - INSCRIPTION UTILISATEUR/COLLECTEUR
+=====================================================
+
+CHANGEMENTS APPORTES
+--------------------
+✅ Ecran d'inscription : 2 choix visibles
+   - Utilisateur (icone recycle)
+   - Collecteur (icone camion)
+   
+✅ Flux automatique :
+   - Si tu choisis "Utilisateur" → Va au HomeScreen
+   - Si tu choisis "Collecteur" → Va au formulaire collecteur
+   
+✅ Splash screen : Redirige vers ProfileChoiceScreen
+
+
+ETAPES POUR TESTER
+------------------
+
+1. PREREQUIS (DEJA FAIT NORMALEMENT)
+   - Execute database/create_user_profiles_table.sql dans Supabase
+   
+2. REDEMARRER L'APP
+   Dans le terminal:
+   - Ctrl+C (arreter l'app)
+   - flutter run (relancer)
+   - Attends que ca compile
+   
+3. CREER UN NOUVEAU COMPTE
+   a) Sur l'ecran de login, clique "Je n'ai pas de compte"
+   
+   b) Tu verras maintenant 2 OPTIONS :
+      ┌──────────────┐  ┌──────────────┐
+      │ 🔄 RECYCLE   │  │ 🚚 CAMION    │
+      │ Utilisateur  │  │  Collecteur  │
+      │ Je recycle   │  │ Je collecte  │
+      └──────────────┘  └──────────────┘
+   
+   c) Clique sur ton choix (change la couleur!)
+   
+   d) Remplis le formulaire:
+      - Nom: Ton nom
+      - Email: test@example.com
+      - Mot de passe: minimum 6 caracteres
+   
+   e) Clique "S'inscrire"
+
+4. RESULTAT SELON TON CHOIX
+   
+   CAS 1 - Tu as choisi "UTILISATEUR" :
+   ✅ Inscription reussie
+   ✅ Connexion automatique
+   ✅ Redirection vers ProfileChoiceScreen
+   ✅ Puis HomeScreen (utilisateur)
+   
+   CAS 2 - Tu as choisi "COLLECTEUR" :
+   ✅ Inscription reussie
+   ✅ Connexion automatique
+   ✅ Redirection vers FORMULAIRE COLLECTEUR
+   ✅ Tu remplis: Business, Licence, Vehicule, Rayon
+   ✅ Creation du profil collecteur
+   ✅ Redirection vers Dashboard Collecteur
+
+
+5. POUR UN UTILISATEUR EXISTANT
+   Si tu login avec un compte existant:
+   - Tu vas a ProfileChoiceScreen
+   - Tu peux choisir ton profil (si tu en as plusieurs)
+   - Ou cliquer "Devenir collecteur" pour ajouter ce profil
+
+
+CE QUI EST GENIAL
+------------------
+✅ Un seul compte = plusieurs profils possibles
+✅ Tu peux etre Utilisateur ET Collecteur
+✅ Interface claire avec icones
+✅ Flux automatique selon le choix
+
+
+EXEMPLE COMPLET
+---------------
+1. Nouveau utilisateur "Alice"
+   - Va sur Inscription
+   - Choisit "Utilisateur"
+   - Remplit: Alice, alice@mail.com, pass123
+   - Clic S'inscrire
+   - → Va direct au HomeScreen utilisateur ✅
+
+2. Nouveau collecteur "Bob"
+   - Va sur Inscription
+   - Choisit "Collecteur"
+   - Remplit: Bob, bob@mail.com, pass123
+   - Clic S'inscrire
+   - → Va au formulaire collecteur
+   - Remplit: Business "Bob Transport", Licence, etc.
+   - → Va au Dashboard Collecteur ✅
+
+3. Alice veut devenir collecteur aussi
+   - Login avec alice@mail.com
+   - Sur ProfileChoiceScreen, clic "Devenir collecteur"
+   - Remplit le formulaire collecteur
+   - → Maintenant Alice peut switcher entre Utilisateur et Collecteur ! ✅
+
+
+COMMENT VERIFIER QUE CA MARCHE
+-------------------------------
+1. Redémarre l'app (Ctrl+C puis flutter run)
+2. Sur l'ecran login, clique "Je n'ai pas de compte"
+3. Tu DOIS voir les 2 CARTES cote a cote
+4. Clique sur "Collecteur" → La carte devient JAUNE
+5. Clique sur "Utilisateur" → La carte devient VERTE
+6. Complete l'inscription et verifie le flux !
+
+
+SI CA NE MARCHE PAS
+-------------------
+- Verifie que l'app est bien redemarree
+- Verifie les logs dans le terminal
+- Assure-toi d'avoir execute le SQL
+- Verifie que tu es bien sur l'ecran "Inscription" (pas "Connexion")
+
+
+FAIT ! 🚀
+---------
+Maintenant ton app a une vraie distinction entre:
+- Les recycleurs (utilisateurs)
+- Les collecteurs professionnels
+
+Et le meme compte peut avoir les deux profils !
+

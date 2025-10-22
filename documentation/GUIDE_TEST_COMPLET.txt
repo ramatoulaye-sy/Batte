@@ -1,0 +1,382 @@
+🧪 GUIDE DE TEST COMPLET - BATTÈ APP
+=====================================
+
+Ce guide te permet de tester TOUTES les fonctionnalités
+qu'on a implémentées aujourd'hui !
+
+
+═══════════════════════════════════════════════
+PRÉPARATION (5 min)
+═══════════════════════════════════════════════
+
+ÉTAPE 1 : Vérifier que les scripts SQL sont exécutés
+----------------------------------------------------
+Va sur Supabase → SQL Editor
+
+Script 1 : database/create_user_profiles_table.sql
+✅ Vérifie : SELECT * FROM user_profiles LIMIT 5;
+
+Script 2 : database/setup_rls_security_minimal.sql
+✅ Vérifie : SELECT * FROM check_rls_status();
+   Résultat attendu : 4 tables avec rls_enabled = true
+
+Script 3 : database/create_missing_profiles.sql (déjà fait)
+✅ Vérifie : Tous les users ont un profil
+
+
+ÉTAPE 2 : Redémarrer l'app
+---------------------------
+Dans le terminal :
+
+Ctrl+C (arrêter l'app si elle tourne)
+flutter run
+
+Attends que ça compile (1-2 min)
+
+
+═══════════════════════════════════════════════
+TEST 1 : INSCRIPTION PROGRESSIVE (10 min)
+═══════════════════════════════════════════════
+
+Objectif : Tester le nouveau flux d'inscription avec choix de profil
+
+ÉTAPES :
+--------
+1. Sur l'écran de login, clique "Pas encore de compte ?"
+
+2. ✅ VÉRIFICATION 1 : Tu vois UNIQUEMENT les 2 cartes
+   ┌─────────────┐  ┌─────────────┐
+   │ 🔄 VERT     │  │ 🚚 JAUNE    │
+   │ Utilisateur │  │  Collecteur │
+   │ Je recycle  │  │ Je collecte │
+   └─────────────┘  └─────────────┘
+   
+   ❌ PAS de champs visibles (Nom, Email, Password)
+   ❌ PAS de bouton "S'inscrire"
+
+3. Clique sur "UTILISATEUR" (carte verte)
+
+4. ✅ VÉRIFICATION 2 : Le formulaire APPARAÎT avec animation
+   - Animation de 400ms (fade + slide)
+   - Titre : "📝 Inscription Utilisateur"
+   - Champs : Nom, Email, Mot de passe
+   - Bouton : "S'inscrire"
+
+5. Teste le changement :
+   - Clique sur "COLLECTEUR" (carte jaune)
+   - ✅ Le titre change : "🚚 Inscription Collecteur"
+   - Les champs restent visibles
+
+6. Remplis le formulaire :
+   - Nom : "Test User"
+   - Email : "testuser@mail.com"
+   - Mot de passe : "test123"
+
+7. Clique "S'inscrire"
+
+8. ✅ VÉRIFICATION 3 : Redirection automatique
+   - Message : "Inscription réussie ! Connexion en cours..."
+   - Attente 1 seconde
+   - → HomeScreen s'affiche
+   - Navbar visible en bas
+
+
+═══════════════════════════════════════════════
+TEST 2 : INSCRIPTION COLLECTEUR (10 min)
+═══════════════════════════════════════════════
+
+Objectif : Tester le flux collecteur complet
+
+ÉTAPES :
+--------
+1. Logout (va dans Paramètres → Déconnexion)
+
+2. Retour au login → "Pas encore de compte ?"
+
+3. Clique sur "COLLECTEUR" (carte jaune)
+
+4. ✅ VÉRIFICATION : Titre "🚚 Inscription Collecteur"
+
+5. Remplis :
+   - Nom : "Test Collector"
+   - Email : "collector@mail.com"
+   - Mot de passe : "collect123"
+
+6. Clique "S'inscrire"
+
+7. ✅ VÉRIFICATION : Formulaire collecteur s'affiche
+   - Business name
+   - Licence
+   - Véhicule
+   - Rayon
+
+8. Remplis le formulaire collecteur :
+   - Business : "Mon Business Test"
+   - Licence : "RC-TEST-001"
+   - Véhicule : "Camion Toyota - GN-999-ABC"
+   - Rayon : 10
+
+9. Clique "Créer mon profil collecteur"
+
+10. ✅ VÉRIFICATION : Dashboard Collecteur s'affiche
+    - Stats : Collectes, Gains, Rayon, Note
+    - Toggle : Disponible/Indisponible
+    - Pas d'overflow (pas de bandes jaunes)
+
+
+═══════════════════════════════════════════════
+TEST 3 : SÉPARATION DES PROFILS (10 min)
+═══════════════════════════════════════════════
+
+Objectif : Vérifier qu'un utilisateur ne peut pas accéder au mauvais dashboard
+
+TEST 3A : UTILISATEUR → Ne peut pas aller au dashboard collecteur
+------------------------------------------------------------------
+1. Logout
+2. Login avec testuser@mail.com
+
+3. ✅ VÉRIFICATION : Tu arrives au HomeScreen
+   - Navbar : Home, Recyclage, Budget, Education, Services
+   - Stats : Solde, Eco-score visible
+
+4. Essaie de forcer l'accès au dashboard collecteur :
+   - Dans Cursor, ouvre lib/app.dart
+   - Cherche la route '/collector-dashboard'
+   - Essaie d'y accéder manuellement (ne devrait pas être possible via l'UI)
+   
+   ✅ Si tu y arrives quand même, tu seras AUTOMATIQUEMENT redirigé vers /home
+   (Grâce à la vérification dans collector_dashboard_screen.dart)
+
+TEST 3B : COLLECTEUR → Ne peut pas aller au HomeScreen utilisateur
+-------------------------------------------------------------------
+1. Logout
+2. Login avec collector@mail.com (ou halima@batte.com)
+
+3. ✅ VÉRIFICATION : Tu arrives au Dashboard Collecteur
+   - Stats collecteur visibles
+   - Toggle disponibilité
+
+4. Essaie de forcer l'accès au HomeScreen :
+   - Si tu essaies d'y aller, tu seras AUTOMATIQUEMENT redirigé vers /collector-dashboard
+   (Grâce à la vérification dans home_screen.dart)
+
+
+═══════════════════════════════════════════════
+TEST 4 : REDIRECTION AUTOMATIQUE AU LOGIN (5 min)
+═══════════════════════════════════════════════
+
+Objectif : Vérifier que le login redirige vers le bon dashboard
+
+1. Logout
+
+2. Login avec un compte UTILISATEUR (ex: testuser@mail.com)
+   ✅ Va direct au HomeScreen (pas de choix intermédiaire)
+
+3. Logout
+
+4. Login avec un compte COLLECTEUR (ex: halima@batte.com)
+   ✅ Va direct au Dashboard Collecteur (pas de choix)
+
+5. ✅ VÉRIFICATION : Plus de ProfileChoiceScreen
+   Le système détecte automatiquement le profil
+
+
+═══════════════════════════════════════════════
+TEST 5 : SPLASH SCREEN (2 min)
+═══════════════════════════════════════════════
+
+Objectif : Tester la redirection au démarrage
+
+1. Ferme complètement l'app (Ctrl+C)
+
+2. Relance : flutter run
+
+3. Attends le splash screen (3 secondes)
+
+4. Si tu es UTILISATEUR → ✅ Va au HomeScreen
+   Si tu es COLLECTEUR → ✅ Va au Dashboard Collecteur
+   Si pas connecté → ✅ Va au LoginScreen
+
+
+═══════════════════════════════════════════════
+TEST 6 : RLS SUPABASE - SÉCURITÉ (10 min)
+═══════════════════════════════════════════════
+
+Objectif : Vérifier que les données sont protégées côté serveur
+
+TEST 6A : Voir uniquement ses propres données
+----------------------------------------------
+1. Connecte-toi avec testuser@mail.com dans l'app
+
+2. Va sur Supabase → Authentication → Users
+   Note l'ID de testuser
+
+3. Va sur Supabase → Table Editor → transactions
+   Clique "RLS enabled" en haut
+
+4. ✅ VÉRIFICATION : Tu ne vois QUE les transactions de testuser
+   (Pas les transactions des autres utilisateurs)
+
+TEST 6B : Impossible d'avoir 2 profils
+---------------------------------------
+1. Va sur Supabase → SQL Editor
+
+2. Essaie d'insérer un 2ème profil pour testuser :
+
+   INSERT INTO user_profiles (user_id, profile_type)
+   VALUES (
+     (SELECT id FROM users WHERE email = 'testuser@mail.com'),
+     'collector'
+   );
+
+3. ✅ VÉRIFICATION : Tu devrais avoir une ERREUR
+   "Un utilisateur ne peut avoir qu'un seul profil"
+   
+   C'est normal ! Le trigger empêche les doublons.
+
+TEST 6C : Vérifier les fonctions helper
+----------------------------------------
+1. Dans Supabase SQL Editor, exécute :
+
+   SELECT user_has_profile_type('user');
+
+2. Si tu es connecté en tant qu'utilisateur :
+   ✅ Résultat : true
+
+3. Exécute :
+
+   SELECT user_has_profile_type('collector');
+
+4. Si tu es utilisateur :
+   ✅ Résultat : false
+
+
+═══════════════════════════════════════════════
+TEST 7 : ANIMATION DU FORMULAIRE (2 min)
+═══════════════════════════════════════════════
+
+Objectif : Voir l'animation fluide
+
+1. Logout
+
+2. "Pas encore de compte ?"
+
+3. Regarde bien l'écran (cartes uniquement)
+
+4. Clique sur "UTILISATEUR"
+
+5. ✅ VÉRIFICATION : Le formulaire apparaît avec :
+   - Fade in (apparition progressive en 400ms)
+   - Slide up (glisse légèrement vers le haut)
+   - Transition fluide et professionnelle
+
+6. Clique sur "COLLECTEUR"
+   ✅ Le titre change instantanément
+
+
+═══════════════════════════════════════════════
+TEST 8 : VALIDATION TEMPS RÉEL (À VENIR)
+═══════════════════════════════════════════════
+
+Note : Les fichiers de validation sont créés mais pas encore intégrés.
+On peut les intégrer après si tu veux.
+
+
+═══════════════════════════════════════════════
+CHECKLIST COMPLÈTE
+═══════════════════════════════════════════════
+
+Coche au fur et à mesure :
+
+□ Les 2 cartes (Utilisateur/Collecteur) s'affichent
+□ Les champs apparaissent APRÈS le choix
+□ Animation fluide (fade + slide)
+□ Inscription utilisateur → HomeScreen
+□ Inscription collecteur → Formulaire collecteur → Dashboard
+□ Login utilisateur → HomeScreen direct
+□ Login collecteur → Dashboard collecteur direct
+□ Dashboard collecteur sans overflow
+□ Utilisateur ne peut pas accéder au dashboard collecteur
+□ Collecteur ne peut pas accéder au HomeScreen utilisateur
+□ RLS activé sur les 4 tables
+□ Trigger empêche les profils multiples
+□ Chaque utilisateur voit uniquement ses données
+
+
+═══════════════════════════════════════════════
+SI UN TEST ÉCHOUE
+═══════════════════════════════════════════════
+
+PROBLÈME : L'animation ne s'affiche pas
+SOLUTION : Vérifie que animated_form_reveal.dart existe dans lib/widgets/
+
+PROBLÈME : Erreur au login
+SOLUTION : Vérifie les logs, cherche "❌" dans le terminal
+
+PROBLÈME : Redirection incorrecte
+SOLUTION : Vérifie que tous les utilisateurs ont un profil :
+   SELECT u.email, up.profile_type 
+   FROM users u 
+   LEFT JOIN user_profiles up ON u.id = up.user_id;
+
+PROBLÈME : RLS bloque tout
+SOLUTION : Vérifie que les politiques sont correctes dans Supabase
+
+PROBLÈME : Dashboard collecteur overflow
+SOLUTION : Déjà corrigé ! Redémarre l'app.
+
+
+═══════════════════════════════════════════════
+RÉSUMÉ DES TESTS
+═══════════════════════════════════════════════
+
+Tests minimaux à faire :
+1. Inscription utilisateur (5 min)
+2. Inscription collecteur (5 min)
+3. Login avec les 2 types (2 min)
+
+Tests approfondis :
+4. Vérifier RLS dans Supabase (5 min)
+5. Tester l'animation (2 min)
+6. Tester les redirections automatiques (5 min)
+
+TEMPS TOTAL : 15-25 minutes
+
+
+═══════════════════════════════════════════════
+PROCHAINES ÉTAPES APRÈS LES TESTS
+═══════════════════════════════════════════════
+
+Si tout fonctionne :
+✅ Photos de profil (upload avatar)
+✅ Notifications push
+✅ Intégration de la validation temps réel dans les formulaires
+
+Si problèmes :
+❌ Regarde les logs dans le terminal
+❌ Cherche les messages d'erreur "❌"
+❌ Dis-moi le problème, je corrige !
+
+
+═══════════════════════════════════════════════
+COMMANDES UTILES
+═══════════════════════════════════════════════
+
+Redémarrer l'app :
+  Ctrl+C
+  flutter run
+
+Voir les logs en temps réel :
+  (Les logs s'affichent automatiquement dans le terminal)
+
+Nettoyer le projet :
+  flutter clean
+  flutter pub get
+  flutter run
+
+Vérifier les erreurs :
+  flutter analyze --no-fatal-infos
+
+
+COMMENCE PAR LE TEST 1 (INSCRIPTION) ! 🚀
+

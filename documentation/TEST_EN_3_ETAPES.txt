@@ -1,0 +1,93 @@
+🚀 TEST RAPIDE EN 3 ÉTAPES - BATTÈ
+===================================
+
+Tu as 3 minutes ? Teste ça ! ⏱️
+
+
+ÉTAPE 1 : REDÉMARRE L'APP (1 min)
+==================================
+
+Dans le terminal (en bas de Cursor) :
+
+Ctrl+C      ← Arrête l'app
+flutter run ← Relance l'app
+
+Attends que ça compile...
+
+
+ÉTAPE 2 : TESTE L'INSCRIPTION (1 min)
+======================================
+
+1. Clique "Pas encore de compte ?"
+
+2. 👀 REGARDE BIEN :
+   - Tu vois UNIQUEMENT 2 cartes (Utilisateur/Collecteur)
+   - PAS de champs en dessous
+   
+   ✅ SI OUI = Parfait !
+   ❌ SI NON = Problème
+
+3. Clique sur "UTILISATEUR" (vert)
+
+4. 👀 REGARDE BIEN :
+   - Le formulaire APPARAÎT avec une animation
+   - Titre : "📝 Inscription Utilisateur"
+   - 3 champs : Nom, Email, Password
+   
+   ✅ SI OUI = Animation fonctionne !
+   ❌ SI NON = Problème
+
+
+ÉTAPE 3 : INSCRIS-TOI ET TESTE (1 min)
+=======================================
+
+1. Remplis :
+   - Nom : "Quick Test"
+   - Email : "quick@test.com"
+   - Password : "test123"
+
+2. Clique "S'inscrire"
+
+3. 👀 REGARDE BIEN :
+   - Message vert : "Inscription réussie !"
+   - Redirection automatique
+   - Tu arrives au HomeScreen
+   - Navbar en bas : Home, Recyclage, Budget, etc.
+   
+   ✅ SI OUI = TOUT MARCHE PARFAITEMENT ! 🎉
+   ❌ SI NON = Regarde les logs (cherche "❌")
+
+
+═══════════════════════════════════════════════
+RÉSULTAT ATTENDU
+═══════════════════════════════════════════════
+
+SI TOUT EST OK :
+✅ Les 2 cartes s'affichent d'abord
+✅ Le formulaire apparaît après (avec animation)
+✅ L'inscription fonctionne
+✅ Redirection vers HomeScreen
+
+SI PROBLÈME :
+❌ Regarde les logs dans le terminal
+❌ Cherche les messages d'erreur (ligne rouge avec "❌")
+❌ Copie/colle l'erreur ici, je corrige !
+
+
+═══════════════════════════════════════════════
+TESTE AUSSI LE COLLECTEUR (BONUS - 2 min)
+═══════════════════════════════════════════════
+
+1. Logout (Paramètres → Déconnexion)
+2. Nouvelle inscription
+3. Choisis "COLLECTEUR" cette fois
+4. Remplis nom, email, password
+5. S'inscrire
+6. Remplis le formulaire collecteur
+7. ✅ Tu arrives au Dashboard Collecteur
+
+
+C'EST TOUT ! 🎉
+
+Si ces 3 étapes fonctionnent, ton app est PARFAITE !
+

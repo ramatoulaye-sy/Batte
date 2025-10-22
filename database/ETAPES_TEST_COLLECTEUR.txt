@@ -1,0 +1,47 @@
+ETAPES POUR TESTER L'INSCRIPTION COLLECTEUR
+============================================
+
+PROBLEME: Tu ne vois pas les choix d'inscription
+SOLUTION: Suivre ces etapes dans l'ordre !
+
+ETAPE 1: EXECUTER LE SQL (OBLIGATOIRE)
+---------------------------------------
+1. Va sur Supabase SQL Editor
+2. Execute ce fichier: database/create_user_profiles_table.sql
+3. Verifie que ca retourne "Success" (sans erreur)
+
+ETAPE 2: VERIFIER LA TABLE
+---------------------------
+Execute cette requete pour verifier:
+
+SELECT * FROM public.user_profiles LIMIT 5;
+
+Tu devrais voir des profils 'user' pour tes utilisateurs existants.
+
+ETAPE 3: REDEMARRER L'APP
+--------------------------
+1. Arrete l'app (Ctrl+C dans le terminal)
+2. Relance: flutter run
+3. Attends que ca compile
+
+ETAPE 4: LOGIN
+--------------
+1. Login avec ton compte existant
+2. Au lieu d'aller directement au HomeScreen
+3. Tu devrais voir l'ecran de CHOIX DE PROFIL
+
+ETAPE 5: SI CA NE MARCHE PAS
+-----------------------------
+Verifie les logs dans le terminal:
+- Cherche "Erreur get profiles"
+- Cherche "profile_choice"
+
+ETAPE 6: DEBUG
+--------------
+Si tu vas direct au HomeScreen sans voir le choix:
+- C'est que la fonction get_user_profiles retourne vide
+- Ou que le routing n'est pas pris en compte
+
+SOLUTION RAPIDE:
+Execute d'abord le SQL, puis redémarre l'app !
+

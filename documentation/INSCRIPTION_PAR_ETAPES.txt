@@ -1,0 +1,253 @@
+✅ INSCRIPTION PAR ÉTAPES - UX PROFESSIONNELLE
+===============================================
+
+AMELIORATION DEMANDEE PAR L'UTILISATEUR
+----------------------------------------
+"Je voudrais que les champs d'inscription n'apparaissent 
+qu'APRÈS avoir sélectionné un type de compte. 
+C'est plus professionnel et rassurant."
+
+✅ TOTALEMENT D'ACCORD ! C'EST BIEN MIEUX !
+
+
+AVANT (Tous les champs affichés)
+---------------------------------
+❌ Trop d'informations d'un coup
+❌ Intimidant pour l'utilisateur
+❌ Pas de guidage clair
+❌ Interface chargée
+
+┌─────────────────────────────────┐
+│  Type : [Utilisateur] [Collecteur] │
+│  Nom : [________]                │
+│  Email : [________]              │
+│  Mot de passe : [________]       │
+│  [S'inscrire]                    │
+└─────────────────────────────────┘
+
+
+MAINTENANT (Formulaire progressif)
+-----------------------------------
+✅ Concentration sur une étape à la fois
+✅ Rassurant et guidé
+✅ Interface épurée
+✅ UX moderne et professionnelle
+
+ÉTAPE 1 : Choix du type
+┌─────────────────────────────────┐
+│  Je m'inscris en tant que       │
+│                                 │
+│  [🔄 Utilisateur] [🚚 Collecteur] │
+│                                 │
+└─────────────────────────────────┘
+
+↓ (Clic sur une carte)
+
+ÉTAPE 2 : Formulaire apparaît
+┌─────────────────────────────────┐
+│  📝 Inscription Utilisateur     │
+│                                 │
+│  Nom complet : [________]       │
+│  Email : [________]             │
+│  Mot de passe : [________]      │
+│                                 │
+│  [S'inscrire]                   │
+└─────────────────────────────────┘
+
+
+CHANGEMENTS TECHNIQUES
+----------------------
+
+1. VARIABLE D'ETAT
+   Avant : String _signupType = 'user';
+   Maintenant : String? _signupType; // null au départ
+   
+2. AFFICHAGE CONDITIONNEL
+   ✅ Cartes de choix : Toujours visibles en mode signup
+   ✅ Champs (nom, email, password) : SEULEMENT si _signupType != null
+   ✅ Bouton S'inscrire : SEULEMENT si _signupType != null
+   ✅ Titre dynamique : "Inscription Utilisateur" ou "Inscription Collecteur"
+
+3. REINITIALISATION
+   ✅ Quand on bascule Login ↔ Signup, _signupType redevient null
+
+
+CODE MODIFIE
+------------
+
+1. VARIABLE D'ETAT
+```dart
+String? _signupType; // null au départ, puis 'user' ou 'collector'
+```
+
+2. AFFICHAGE DES CHAMPS
+```dart
+// Cartes de choix (toujours visibles)
+if (_isSignup) ...[
+  Text('Je m\'inscris en tant que'),
+  Row([Utilisateur, Collecteur]),
+  
+  // Champs UNIQUEMENT si type sélectionné
+  if (_signupType != null) ...[
+    Text(_signupType == 'user' 
+      ? '📝 Inscription Utilisateur' 
+      : '🚚 Inscription Collecteur'),
+    CustomTextField(nom),
+  ],
+],
+
+// Email et mot de passe UNIQUEMENT si type sélectionné
+if (!_isSignup || _signupType != null) ...[
+  CustomTextField(email),
+  CustomTextField(password),
+],
+
+// Bouton UNIQUEMENT si type sélectionné
+if (!_isSignup || _signupType != null)
+  CustomButton('S\'inscrire'),
+```
+
+3. REINITIALISATION
+```dart
+void _toggleMode() {
+  setState(() {
+    _isSignup = !_isSignup;
+    _signupType = null; // Reset
+  });
+}
+```
+
+
+EXPERIENCE UTILISATEUR
+-----------------------
+
+SCENARIO 1 : INSCRIPTION UTILISATEUR
+-------------------------------------
+1. Utilisateur clique "Pas encore de compte"
+2. ✅ Il voit UNIQUEMENT les 2 cartes (Utilisateur / Collecteur)
+3. ✅ L'interface est épurée, claire
+4. Utilisateur clique sur "Utilisateur" (vert)
+5. ✅ ANIMATION : Le formulaire apparaît en dessous
+6. ✅ Titre : "📝 Inscription Utilisateur"
+7. ✅ Champs : Nom, Email, Mot de passe
+8. ✅ Bouton : "S'inscrire"
+9. Il remplit et s'inscrit
+10. ✅ Redirection → HomeScreen
+
+SCENARIO 2 : INSCRIPTION COLLECTEUR
+------------------------------------
+1. Utilisateur clique "Pas encore de compte"
+2. ✅ Il voit les 2 cartes
+3. Utilisateur clique sur "Collecteur" (jaune)
+4. ✅ ANIMATION : Le formulaire apparaît
+5. ✅ Titre : "🚚 Inscription Collecteur"
+6. ✅ Champs : Nom, Email, Mot de passe
+7. ✅ Bouton : "S'inscrire"
+8. Il remplit et s'inscrit
+9. ✅ Redirection → Formulaire collecteur détaillé
+10. ✅ Puis Dashboard Collecteur
+
+SCENARIO 3 : CHANGEMENT D'AVIS
+-------------------------------
+1. Utilisateur clique "Collecteur"
+2. ✅ Formulaire apparaît
+3. Utilisateur change d'avis, clique "Utilisateur"
+4. ✅ Le titre change : "📝 Inscription Utilisateur"
+5. ✅ Les champs restent visibles
+6. Il peut remplir normalement
+
+
+AVANTAGES DE CETTE APPROCHE
+----------------------------
+
+✅ CLARTE
+   - Une étape à la fois
+   - Pas de surcharge cognitive
+   - Focus sur le choix important d'abord
+
+✅ GUIDAGE
+   - Processus clair : 1. Choix → 2. Formulaire
+   - L'utilisateur sait où il en est
+   - Pas de confusion possible
+
+✅ DESIGN MODERNE
+   - Interface progressive
+   - Apparition fluide des éléments
+   - UX type "wizard" ou "stepper"
+
+✅ CONFIANCE
+   - Moins intimidant
+   - Choix réfléchi avant de remplir
+   - Engagement progressif
+
+✅ PROFESSIONNALISME
+   - Design soigné
+   - Attention aux détails
+   - Expérience premium
+
+
+COMPARAISON AVEC D'AUTRES APPS
+-------------------------------
+
+Stripe Onboarding :
+✅ Choix du type de compte → Formulaire
+
+Uber (Driver/Rider) :
+✅ Choix du rôle → Inscription adaptée
+
+LinkedIn Premium :
+✅ Choix de l'offre → Formulaire de paiement
+
+Airbnb (Host/Guest) :
+✅ Choix du rôle → Formulaire spécifique
+
+→ Les meilleures apps utilisent cette approche !
+
+
+FICHIER MODIFIE
+---------------
+✅ lib/screens/auth/login_screen.dart
+   - _signupType : String → String? (nullable)
+   - Affichage conditionnel des champs
+   - Titre dynamique selon le type
+   - Réinitialisation au toggle
+
+
+POUR TESTER
+-----------
+
+1. Redémarre l'app
+   Ctrl+C
+   flutter run
+
+2. Va sur l'écran de login
+
+3. Clique "Pas encore de compte"
+
+4. ✅ TU VOIS UNIQUEMENT LES 2 CARTES
+   - Interface épurée
+   - Pas de champs visibles
+
+5. Clique sur "UTILISATEUR" (vert)
+
+6. ✅ LE FORMULAIRE APPARAIT !
+   - Titre : "📝 Inscription Utilisateur"
+   - Champs : Nom, Email, Mot de passe
+   - Bouton : "S'inscrire"
+
+7. Teste aussi avec "COLLECTEUR" (jaune)
+   - Titre : "🚚 Inscription Collecteur"
+   - Mêmes champs
+
+
+RESULTAT FINAL
+--------------
+✅ Interface professionnelle et épurée
+✅ Guidage clair étape par étape
+✅ Expérience utilisateur premium
+✅ Moins intimidant pour les nouveaux utilisateurs
+✅ Focus sur le choix important d'abord
+✅ Design moderne type "wizard"
+
+L'INSCRIPTION EST MAINTENANT PROGRESSIVE ET PROFESSIONNELLE ! 🎉
+

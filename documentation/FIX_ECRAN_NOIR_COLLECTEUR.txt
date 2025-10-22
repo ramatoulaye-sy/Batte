@@ -1,0 +1,115 @@
+✅ CORRECTION - ECRAN NOIR APRES INSCRIPTION COLLECTEUR
+========================================================
+
+PROBLEME IDENTIFIE
+------------------
+❌ Après l'inscription collecteur, écran noir
+❌ Cause: Le CollectorSignupScreen faisait un "pop" au lieu de naviguer
+
+SOLUTION APPLIQUEE
+------------------
+✅ Ajout d'un paramètre "isFromSignup" dans CollectorSignupScreen
+✅ Logique de navigation adaptée selon l'origine:
+   - Si vient de l'inscription → pushReplacement vers Dashboard Collecteur
+   - Si vient de ProfileChoice → pop pour retourner
+
+CHANGEMENTS APPORTES
+--------------------
+
+1. CollectorSignupScreen
+   ✅ Nouveau paramètre: isFromSignup (bool)
+   ✅ Navigation intelligente après création du profil:
+      - isFromSignup = true → Dashboard Collecteur
+      - isFromSignup = false → Retour à ProfileChoice
+
+2. LoginScreen
+   ✅ Passe isFromSignup: true lors de l'inscription
+
+3. ProfileChoiceScreen
+   ✅ Pas de changement (utilise la valeur par défaut false)
+
+
+FLUX COMPLET MAINTENANT
+------------------------
+
+CAS 1: NOUVEAU COMPTE → COLLECTEUR
+-----------------------------------
+1. Inscription avec choix "Collecteur"
+2. Création du compte
+3. Login automatique
+4. Création profil "user"
+5. Redirection → CollectorSignupScreen(isFromSignup: true)
+6. Remplissage formulaire collecteur
+7. Création profil "collector" + entrée collectors
+8. ✅ Navigation → Dashboard Collecteur (pas de pop!)
+
+CAS 2: COMPTE EXISTANT → AJOUTER PROFIL COLLECTEUR
+---------------------------------------------------
+1. Login
+2. ProfileChoiceScreen → Clic "Devenir collecteur"
+3. Navigation → CollectorSignupScreen(isFromSignup: false)
+4. Remplissage formulaire
+5. Création profil "collector" + entrée collectors
+6. ✅ Pop → Retour ProfileChoiceScreen (qui reload les profils)
+
+
+POUR TESTER LA CORRECTION
+--------------------------
+
+ETAPE 1: Redémarrer l'app
+   Ctrl+C
+   flutter run
+
+ETAPE 2: Inscription nouveau compte
+   1. Clic "Je n'ai pas de compte"
+   2. Nom: "Test Collecteur"
+   3. Email: "test.collector@mail.com"
+   4. Mot de passe: "test123"
+   5. Sélectionne "COLLECTEUR" (carte jaune)
+   6. Clic "S'inscrire"
+
+ETAPE 3: Formulaire collecteur
+   1. Business: "Mon Business Test"
+   2. Licence: "RC-TEST-001"
+   3. Véhicule: "Camion Toyota"
+   4. Rayon: 10
+   5. Clic "Créer mon profil collecteur"
+
+ETAPE 4: Résultat attendu
+   ✅ Message "Profil collecteur créé avec succès"
+   ✅ Attente 1.5 secondes
+   ✅ Navigation vers DASHBOARD COLLECTEUR
+   ✅ Tu vois:
+      - Statistiques (0 collections, 0 GNF gagné)
+      - Toggle disponibilité
+      - Informations du business
+      - Pas d'écran noir ! 🎉
+
+
+SI CA NE MARCHE PAS
+-------------------
+1. Vérifie les logs dans le terminal
+2. Cherche des erreurs "❌"
+3. Assure-toi que:
+   - Le SQL create_user_profiles_table.sql est exécuté
+   - La table "collectors" existe
+   - L'app est bien redémarrée
+
+
+FICHIERS MODIFIES
+-----------------
+✅ lib/screens/auth/collector_signup_screen.dart
+   - Ajout paramètre isFromSignup
+   - Navigation conditionnelle
+   
+✅ lib/screens/auth/login_screen.dart
+   - Passe isFromSignup: true lors de l'inscription
+
+
+RESUME
+------
+Avant: pop() → écran noir (pas d'écran précédent)
+Après: pushReplacement() → Dashboard Collecteur ! ✅
+
+Le problème d'écran noir est RESOLU ! 🚀
+

@@ -1,0 +1,241 @@
+✅ SÉPARATION STRICTE DES PROFILS - OPTION A
+=============================================
+
+PROBLEMES RESOLUS
+-----------------
+❌ Ordre illogique à l'inscription (nom avant type de compte)
+❌ Collecteurs pouvaient accéder au dashboard utilisateur
+❌ Utilisateurs pouvaient accéder au dashboard collecteur
+❌ ProfileChoiceScreen créait de la confusion
+
+SOLUTION IMPLEMENTEE : OPTION A
+--------------------------------
+✅ Un seul profil par compte
+✅ Choix définitif à l'inscription
+✅ Séparation stricte des interfaces
+✅ Aucun croisement possible
+
+
+CHANGEMENTS APPORTES
+---------------------
+
+1. ECRAN D'INSCRIPTION (login_screen.dart)
+   ✅ NOUVEL ORDRE :
+      1️⃣ Choix du type (Utilisateur ou Collecteur)
+      2️⃣ Nom complet
+      3️⃣ Email
+      4️⃣ Mot de passe
+   
+   ✅ FLUX D'INSCRIPTION :
+      - Utilisateur → Crée profil 'user' → Redirige vers /home
+      - Collecteur → Crée profil 'collector' → Formulaire collecteur → Dashboard collecteur
+   
+   ✅ FLUX DE LOGIN :
+      - Vérifie le profil de l'utilisateur
+      - Collecteur → /collector-dashboard
+      - Utilisateur → /home
+
+2. SPLASH SCREEN (splash_screen.dart)
+   ✅ Vérifie le profil au démarrage
+   ✅ Redirection automatique :
+      - Collecteur → CollectorDashboardScreen
+      - Utilisateur → HomeScreen
+   ✅ Plus de ProfileChoiceScreen
+
+3. APP.DART
+   ✅ Supprimé : ProfileChoiceScreen
+   ✅ Ajouté route : /collector-dashboard
+
+4. HOME SCREEN (home_screen.dart)
+   ✅ Vérification au chargement :
+      - Si profil = 'collector' uniquement → Redirige vers dashboard collecteur
+      - Sinon → Charge normalement
+   ✅ Empêche les collecteurs d'accéder à l'interface utilisateur
+
+5. COLLECTOR DASHBOARD (collector_dashboard_screen.dart)
+   ✅ Vérification au chargement :
+      - Si profil = 'user' uniquement → Redirige vers home
+      - Sinon → Charge normalement
+   ✅ Empêche les utilisateurs d'accéder à l'interface collecteur
+
+
+FLUX COMPLETS
+-------------
+
+NOUVEAU COMPTE UTILISATEUR
+---------------------------
+1. Inscription
+2. Choisit "UTILISATEUR" (carte verte)
+3. Remplit : Nom, Email, Mot de passe
+4. Clic "S'inscrire"
+5. ✅ Profil 'user' créé
+6. ✅ Redirection → HomeScreen
+7. ✅ Accès à : Home, Recyclage, Budget, Education, Services
+8. ❌ AUCUN accès au dashboard collecteur
+
+NOUVEAU COMPTE COLLECTEUR
+--------------------------
+1. Inscription
+2. Choisit "COLLECTEUR" (carte jaune)
+3. Remplit : Nom, Email, Mot de passe
+4. Clic "S'inscrire"
+5. ✅ Profil 'collector' créé
+6. ✅ Redirection → Formulaire collecteur
+7. Remplit : Business, Licence, Véhicule, Rayon
+8. ✅ Données collecteur créées
+9. ✅ Redirection → Dashboard Collecteur
+10. ✅ Accès à : Dashboard, Stats, Toggle disponibilité
+11. ❌ AUCUN accès aux fonctionnalités utilisateur
+
+LOGIN UTILISATEUR EXISTANT
+---------------------------
+1. Login avec email/mot de passe
+2. ✅ Vérification profil = 'user'
+3. ✅ Redirection → HomeScreen
+4. ✅ Interface utilisateur complète
+5. ❌ Impossible d'accéder au dashboard collecteur
+
+LOGIN COLLECTEUR EXISTANT
+--------------------------
+1. Login avec email/mot de passe
+2. ✅ Vérification profil = 'collector'
+3. ✅ Redirection → CollectorDashboardScreen
+4. ✅ Interface collecteur complète
+5. ❌ Impossible d'accéder aux fonctionnalités utilisateur
+
+
+PROTECTIONS MISES EN PLACE
+---------------------------
+
+✅ HomeScreen :
+   - Vérifie le profil au chargement
+   - Redirige les collecteurs vers leur dashboard
+
+✅ CollectorDashboardScreen :
+   - Vérifie le profil au chargement
+   - Redirige les utilisateurs vers le home
+
+✅ SplashScreen :
+   - Détecte automatiquement le type de profil
+   - Redirige vers la bonne interface
+
+✅ LoginScreen :
+   - Lors de l'inscription : crée le bon profil
+   - Lors du login : redirige vers la bonne interface
+
+✅ Pas de ProfileChoiceScreen :
+   - Évite la confusion
+   - Pas de "choix" après le login
+
+
+SECURITE
+--------
+✅ Un compte = UN seul profil (user OU collector)
+✅ Choix définitif à l'inscription
+✅ Vérifications côté client (redirection automatique)
+✅ TODO: Ajouter vérifications côté serveur (RLS Supabase)
+
+
+INTERFACE UTILISATEUR
+---------------------
+UTILISATEUR voit :
+✅ Navbar : Home, Recyclage, Budget, Education, Services
+✅ Dashboard avec : Solde, Eco-score, Statistiques, Graphiques
+✅ Recyclage : Scanner, Historique, Collecteurs
+✅ Budget : Transactions, Retraits
+✅ Education : Contenu éducatif
+
+COLLECTEUR voit :
+✅ Dashboard spécifique
+✅ Stats : Collectes, Gains, Rayon, Note
+✅ Toggle : Disponible/Indisponible
+✅ Informations business
+✅ Pas d'accès aux fonctionnalités de recyclage
+
+
+BASE DE DONNEES
+---------------
+Table: user_profiles
+- user_id (UUID)
+- profile_type ('user' OU 'collector')
+- is_active (boolean)
+
+Un utilisateur = UNE seule ligne dans user_profiles
+- profile_type = 'user' → Utilisateur
+- profile_type = 'collector' → Collecteur
+
+Table: collectors
+- Données spécifiques aux collecteurs
+- Liée à user_id des collecteurs uniquement
+
+
+FICHIERS MODIFIES
+-----------------
+✅ lib/screens/auth/login_screen.dart
+   - Ordre des champs réorganisé
+   - Flux inscription/login adapté
+
+✅ lib/screens/splash/splash_screen.dart
+   - Détection profil automatique
+   - Redirection directe
+
+✅ lib/app.dart
+   - Route /collector-dashboard ajoutée
+   - ProfileChoiceScreen supprimée
+
+✅ lib/screens/home/home_screen.dart
+   - Protection contre accès collecteurs
+   - Méthode _checkUserProfileAndLoadData()
+
+✅ lib/screens/collector/collector_dashboard_screen.dart
+   - Protection contre accès utilisateurs
+   - Méthode _checkProfileAndLoadData()
+
+
+POUR TESTER
+-----------
+
+TEST 1: INSCRIPTION UTILISATEUR
+1. Redémarre l'app (Ctrl+C puis flutter run)
+2. Clic "Je n'ai pas de compte"
+3. Tu vois d'abord les 2 CARTES (Utilisateur / Collecteur)
+4. Clique "UTILISATEUR" (vert)
+5. Remplis : Nom, Email, Mot de passe
+6. S'inscrire
+7. ✅ Tu arrives au HomeScreen
+8. ✅ Navbar complète visible
+9. ❌ Impossible d'aller au dashboard collecteur
+
+TEST 2: INSCRIPTION COLLECTEUR
+1. Logout
+2. Inscription nouveau compte
+3. Clique "COLLECTEUR" (jaune)
+4. Remplis : Nom, Email, Mot de passe
+5. S'inscrire
+6. ✅ Formulaire collecteur s'affiche
+7. Remplis : Business, Licence, Véhicule, Rayon
+8. Créer profil
+9. ✅ Tu arrives au Dashboard Collecteur
+10. ✅ Stats et toggle disponibilité visibles
+11. ❌ Pas de navbar utilisateur
+
+TEST 3: RE-LOGIN
+1. Logout
+2. Login avec un compte utilisateur
+3. ✅ Va direct au HomeScreen
+4. Logout
+5. Login avec un compte collecteur
+6. ✅ Va direct au Dashboard Collecteur
+
+
+RESULTAT FINAL
+--------------
+✅ Séparation stricte et claire
+✅ Un compte = un profil
+✅ Pas de confusion possible
+✅ Interface adaptée au rôle
+✅ Expérience utilisateur fluide
+✅ Sécurité renforcée
+
+L'APPLICATION EST MAINTENANT PARFAITEMENT SÉPARÉE ! 🎉
+
